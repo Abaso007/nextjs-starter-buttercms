@@ -1,18 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import HumanDate from "@/components/human-date"
-import AuthorCard from '@/components/author-card';
+import AuthorCard from "@/components/author-card";
+import HumanDate from "@/components/human-date";
 
 export default function PostsPreview({
-  title,
+  author,
   coverImage,
   coverImageAlt,
   date,
-  author,
-  tags,
   excerpt,
-  slug
+  slug,
+  tags,
+  title,
 }) {
   return (
     <div className="col-12 col-lg-6">
@@ -26,9 +26,10 @@ export default function PostsPreview({
               <AuthorCard author={author} />
             </li>
             <li>
-              <i className="lni lni-calendar"></i> <HumanDate dateString={date} />
+              <i className="lni lni-calendar"></i>{" "}
+              <HumanDate dateString={date} />
             </li>
-            {tags.map(tag => (
+            {tags.map((tag) => (
               <li key={tag.slug}>
                 <Link href={`/blog/tag/${tag.slug}`}>
                   <i className="lni lni-tag"></i> {tag.name}
@@ -40,19 +41,25 @@ export default function PostsPreview({
         {coverImage && (
           <div className="single-post-thumbnail">
             <Image
-              src={coverImage}
               alt={coverImageAlt}
               fill
               sizes="100vw"
+              src={coverImage}
               style={{
-                objectFit: "cover"
-              }} />
+                objectFit: "cover",
+              }}
+            />
           </div>
         )}
-        <div className="blog-roll-card-body prose" dangerouslySetInnerHTML={{ __html: excerpt }}>
-        </div>
+        <div
+          className="blog-roll-card-body prose"
+          dangerouslySetInnerHTML={{ __html: excerpt }}
+        ></div>
         <div className="blog-roll-card-footer text-center">
-          <Link href={`/blog/${slug}`} className="main-btn btn-hover">
+          <Link
+            className="main-btn btn-hover"
+            href={`/blog/${slug}`}
+          >
             Read More
           </Link>
         </div>
